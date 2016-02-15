@@ -48,7 +48,6 @@ namespace Test
             {
                 cmd.CommandText = $"select * from contact where id={Convert.ToInt32(id)}";
                 cmd.Connection = connect;
-                connect.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())
