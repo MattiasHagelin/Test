@@ -43,8 +43,8 @@ namespace Test
             //finally
             //{
             //    connect.Close();
-            //}
-            c = DBHandler.FecthContacts();
+        }
+        c = DBHandler.FecthContacts();
             if (!IsPostBack)
             {
                 LoadTable();
@@ -93,7 +93,7 @@ namespace Test
                     $"\n<td><a onclick=\"runModal({p.Id}, '{p.Firstname}', '{p.Lastname}');\">Edit</a>|<a href=\"index.aspx?id={p.Id}\">Delete</a></td>\n</tr>";
                 count++;
             }
-            table += "</tbody></table></div>";
+            table += "</tbody></table></div>"
 
             LTable.Text = table;
         }
