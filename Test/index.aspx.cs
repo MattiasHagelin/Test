@@ -1,4 +1,4 @@
-﻿//using ContactDBHandler;
+﻿using ContactDBHandler;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -43,8 +43,8 @@ namespace Test
             //finally
             //{
             //    connect.Close();
-        }
-        c = DBHandler.FecthContacts();
+        //}
+        c = DBHandler.FecthContacts(constr);
             if (!IsPostBack)
             {
                 LoadTable();
