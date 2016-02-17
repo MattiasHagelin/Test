@@ -107,6 +107,7 @@
     </Content>
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\jquery-1.12.0.js" />
+    <Content Include="scripts\MyScripts.js" />
     <Content Include="Site.Master" />
     <Content Include="WebForm2.aspx" />
     <Content Include="DB\BUDBContacts" />

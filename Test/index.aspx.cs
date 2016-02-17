@@ -51,7 +51,7 @@ namespace Test
             }
             else
             {
-
+                LoadTable();
             }
         }
 
@@ -90,10 +90,10 @@ namespace Test
                 //ListItem tempP = new ListItem($"{p.FirstName} {p.LastName}", p.Id);
                 //lbContacts.Items.Add(tempP);
                 table += $"<tr><td>{count}</td>\n<td>{Server.HtmlEncode(p.Firstname)}</td>\n<td>{Server.HtmlEncode(p.Lastname)}</td>\n<td>{p.Ssn}</td>" +
-                    $"\n<td><a onclick=\"runModal({p.Id}, '{p.Firstname}', '{p.Lastname}');\">Edit</a>|<a href=\"index.aspx?id={p.Id}\">Delete</a></td>\n</tr>";
+                    $"\n<td><a onclick=\"editModal({p.Id}, '{p.Firstname}', '{p.Lastname}');\">Edit</a>|<a onclick=\"deleteModal({p.Id},'{p.Firstname}','{p.Lastname}')\">Delete</a></td>\n</tr>";
                 count++;
             }
-            table += "</tbody></table></div>"
+            table += "</tbody></table></div>";
 
             LTable.Text = table;
         }
@@ -176,39 +176,38 @@ namespace Test
             Response.Redirect("index.aspx");
         }
 
-        //protected void btnDelete_Click(object sender, EventArgs e)
-        //{
-        //    SqlConnection connect = new SqlConnection("Data Source = ACADEMY006-VM; Initial Catalog = Contacts; Integrated Security = SSPI;");
-        //    SqlCommand cmd = new SqlCommand("spDeleteContact", connect);
-        //    try
-        //    {
-        //        cmd.CommandType = CommandType.StoredProcedure;
-        //        cmd.Parameters.Add("@id", SqlDbType.Int);
-        //        cmd.Parameters["@id"].Value = Convert.ToInt32(lbContacts.SelectedValue);
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            SqlConnection connect = new SqlConnection("Data Source = ACADEMY006-VM; Initial Catalog = Contacts; Integrated Security = SSPI;");
+            SqlCommand cmd = new SqlCommand("spDeleteContact", connect);
+            try
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@id", SqlDbType.Int);
+                cmd.Parameters["@id"].Value = Convert.ToInt32(tbVId.Text);
 
-        //        connect.Open();
-        //        cmd.ExecuteNonQuery();
-        //        Person t = c.Contacts.Find(p => p.SocialSecurityNumber == lbContacts.SelectedValue);
-        //        c.Contacts.Remove(t);
-        //        lbContacts.Items.Clear();
-        //        IOrderedEnumerable<Person> temp = c.Contacts.OrderBy(p => p.LastName);
-        //        foreach (Person p in temp)
-        //        {
-        //            ListItem tempP = new ListItem($"{p.FirstName} {p.LastName}", p.SocialSecurityNumber);
-        //            lbContacts.Items.Add(tempP);
-        //        }
+                connect.Open();
+                cmd.ExecuteNonQuery();
+                Person p = c.Find(t => t.Id == Convert.ToInt32(tbVId.Text));
+                c.Remove(p);
+                //IOrderedEnumerable<Person> temp = c.OrderBy(p => p.Lastname);
+                //foreach (Person p in temp)
+                //{
+                //    ListItem tempP = new ListItem($"{p.Firstname} {p.Lastname}", p.Ssn);
+                //    lbContacts.Items.Add(tempP);
+                //}
 
-        //    }
-        //    catch (Exception ee)
-        //    {
+            }
+            catch (Exception ee)
+            {
 
-        //        string s = ee.Message;
-        //    }
-        //    finally
-        //    {
-        //        connect.Close();
-        //    }
-        //}
+                string s = ee.Message;
+            }
+            finally
+            {
+                connect.Close();
+            }
+        }
 
         //protected void lbContacts_SelectedIndexChanged1(object sender, EventArgs e)
         //{
